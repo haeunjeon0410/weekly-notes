@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>손민수</title>
 <meta name="robots" content="noindex,nofollow,noarchive">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0f0f0f">
 <style>
 @font-face{font-family:'Gmarket Sans';font-weight:300;font-display:swap;src:url(fonts/GmarketSans-300.woff) format('woff')}
 @font-face{font-family:'Gmarket Sans';font-weight:500;font-display:swap;src:url(fonts/GmarketSans-500.woff) format('woff')}
@@ -108,16 +113,16 @@ dialog::backdrop{background:rgba(0,0,0,.92)}
 </head>
 <body>
 <nav>
-  <div class="brand"><h1><a href="./" id="home" title="처음으로">손민수</a></h1><span class="pill num">≤ ₩50,000</span></div>
+  <div class="brand"><h1><a href="./" id="home" title="처음으로">손민수</a></h1><span class="pill num">≤ ₩100,000</span></div>
   <button id="tFav" aria-label="찜한 코디" title="찜한 코디"></button>
 </nav>
 <section class="hero">
-  <h2>연예인 코디,<br>전부 <span>5만원 이하</span>만.</h2>
-  <p>아이템 가격부터 합계까지, 따라 입기 전에 한 번에 확인해요. (아우터·원피스는 10만원까지)</p>
+  <h2>연예인 코디,<br>전부 <span>10만원 이하</span>만.</h2>
+  <p>아이템 가격부터 합계까지, 따라 입기 전에 한 번에 확인해요.</p>
 </section>
 <div class="bar">
   <div class="cats" id="cats"></div>
-  <span class="total">코디 <b class="num" id="total">0</b>개 <em>· 아우터·원피스 10만원까지</em></span>
+  <span class="total">코디 <b class="num" id="total">0</b>개</span>
 </div>
 <main><div class="grid" id="grid"></div><div class="empty" id="empty" hidden></div><div id="end"></div></main>
 <dialog id="dlg"><button class="lbx" id="lbx" aria-label="닫기">✕</button><div class="lb" id="lb"></div><button class="lbh" id="lbh">이 사진 숨기기</button></dialog>
@@ -174,7 +179,7 @@ const CHEV_R = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stro
 const HEART = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.3 5c2 0 3.7 1.1 4.7 2.7h2C14 6.1 15.7 5 17.7 5 21 5 23.1 8.4 21.6 11.8 19.5 16.4 12 21 12 21z"/></svg>';
 const ARROW = svg('<path d="M7 17L17 7M9 7h8v8"/>', 16, 'class="go" stroke="#5e5e5a" stroke-width="2.2"');
 
-// 5만원 이하 아이템이 하나라도 있는 코디만, 최신순
+// 예산 이하 아이템이 하나라도 있는 코디만, 최신순
 const all = ((window.DATA && window.DATA.coordis) || [])
   .map(c => ({c, items: c.items.filter(i => i.price <= limitOf(i.cat)).sort((a, b) => a.price - b.price)}))
   .filter(v => v.items.length)
