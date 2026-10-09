@@ -1,0 +1,5 @@
+collect.log
+update.bat
+*.bak
+__pycache__/
+accounts.txt

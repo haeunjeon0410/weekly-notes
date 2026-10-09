@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lookbook</title>
+<meta name="robots" content="noindex,nofollow,noarchive">
+<style>
+:root{--bg:#f5f4f1;--card:#fff;--ink:#111;--sub:#8a8a8a;--line:#eeece8;--chip:#ebe9e5;--accent:#ff3b30}
+@media(prefers-color-scheme:dark){:root{--bg:#0d0d0d;--card:#1a1a1a;--ink:#f2f2f2;--sub:#8c8c8c;--line:#2a2a2a;--chip:#262626;--accent:#ff5a50}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0}
+a{color:inherit;text-decoration:none}
+
+header{position:sticky;top:0;z-index:10;background:var(--card);border-bottom:1px solid var(--line)}
+.bar{max-width:1200px;margin:0 auto;padding:18px 24px;display:flex;align-items:center;justify-content:space-between}
+h1{margin:0;font-size:18px;font-weight:800;letter-spacing:-.02em}
+.tabs{display:flex;gap:4px}
+.tabs button{padding:6px 12px;border-radius:99px;font-size:14px;font-weight:600;color:var(--sub)}
+.tabs button.on{background:var(--ink);color:var(--bg)}
+
+main{max-width:1200px;margin:0 auto;padding:32px 24px 80px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:28px;align-items:start}
+.card{background:var(--card);border-radius:20px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.05),0 8px 24px rgba(0,0,0,.06)}
+@media(max-width:560px){.grid{grid-template-columns:1fr;gap:24px}main{padding:20px 16px 60px}.bar{padding:16px}}
+
+.photo{position:relative;background:var(--chip)}
+.strip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.strip img{flex:0 0 100%;width:100%;display:block;aspect-ratio:3/4;object-fit:cover;object-position:50% 20%;scroll-snap-align:center;cursor:zoom-in}
+.dots{position:absolute;left:0;right:0;bottom:16px;padding-right:14px;display:flex;justify-content:flex-end;gap:5px;pointer-events:none}
+.dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5)}
+.dots i.on{background:#fff}
+.fav{position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.95);font-size:20px;line-height:40px;text-align:center;color:#999;box-shadow:0 1px 6px rgba(0,0,0,.18)}
+.fav.on{color:var(--accent)}
+
+.items{padding:6px 20px 10px}
+.item{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.nm{min-width:0;font-size:14.5px;line-height:1.45}
+.nm b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-weight:600}
+.nm small{display:block;font-size:12.5px;color:var(--sub);margin-top:4px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.who{position:absolute;left:0;right:0;bottom:0;padding:44px 20px 18px;background:linear-gradient(transparent,rgba(0,0,0,.6));color:#fff;font-size:17px;font-weight:800;letter-spacing:-.01em;pointer-events:none;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.item{align-items:flex-start !important}
+.ic{flex:none;width:34px;height:34px;border-radius:10px;background:var(--chip);display:grid;place-items:center;font-size:18px;line-height:1}
+.info{display:flex;gap:12px;min-width:0;flex:1}
+.pr{padding-top:1px;font-size:16px !important}
+.pr{font-size:15px;font-weight:800;white-space:nowrap}
+.pr::after{content:" ›";color:var(--sub);font-weight:400}
+a.item:hover .nm{text-decoration:underline}
+
+.empty{text-align:center;color:var(--sub);padding:100px 0;font-size:15px}
+#end{height:1px}
+
+dialog{border:0;padding:0;background:transparent;max-width:100vw;max-height:100vh;width:100vw;height:100vh}
+dialog::backdrop{background:rgba(0,0,0,.92)}
+.lb{height:100%;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.lb img{flex:0 0 100%;width:100%;height:100%;object-fit:contain;scroll-snap-align:center}
+.lbh{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:2;padding:10px 18px;border-radius:99px;background:rgba(255,255,255,.14);color:#fff;font-size:13px;backdrop-filter:blur(8px)}
+.lbx{position:fixed;top:14px;right:14px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.92);color:#111;font-size:18px;z-index:2}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <h1>Lookbook</h1>
+    <div class="tabs"><button id="tAll" class="on">전체</button><button id="tFav" aria-label="찜한 코디" title="찜한 코디">♥</button></div>
+  </div>
+</header>
+<main><div class="grid" id="grid"></div><div class="empty" id="empty" hidden></div><div id="end"></div></main>
+<dialog id="dlg"><button class="lbx" id="lbx" aria-label="닫기">✕</button><div class="lb" id="lb"></div><button class="lbh" id="lbh">이 사진 숨기기</button></dialog>
+
+<script src="data.js"></script>
+<script>
+const LIMIT = 50000, PAGE = 12;
+const $ = s => document.querySelector(s);
+const ICON = {상의:'👕',하의:'👖',아우터:'🧥',원피스:'👗',가방:'👜',신발:'👟',모자:'🧢',소품:'🧣',액세서리:'💍',전자기기:'📱',기타:'🛍️'};
+const won = n => n.toLocaleString('ko-KR') + '원';
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+function el(tag, props, ...kids){ const e = document.createElement(tag); Object.assign(e, props); e.append(...kids); return e; }
+
+// 5만원 이하 아이템이 하나라도 있는 코디만, 최신순
+const all = ((window.DATA && window.DATA.coordis) || [])
+  .map(c => ({c, items: c.items.filter(i => i.price <= LIMIT).sort((a, b) => a.price - b.price)}))
+  .filter(v => v.items.length)
+  .sort((a, b) => (b.c.id > a.c.id) - (b.c.id < a.c.id));
+
+// 코디와 상관없는 사진(음식, 셀카 등)은 확대해서 '숨기기'로 지울 수 있어요
+let hidden = new Set(store.get('sm-hide', []));
+const pics = c => c.photos.filter(u => !hidden.has(u));
+
+let favs = new Set(store.get('sm-favs', []));
+let favOnly = false, shown = 0, cur = [];
+
+function card({c, items}){
+  const photo = el('div', {className: 'photo'});
+  const strip = el('div', {className: 'strip'});
+  const ps = pics(c);
+  ps.forEach((u, i) => strip.append(el('img', {src: u, alt: '', loading: 'lazy', referrerPolicy: 'no-referrer', onclick: () => openLB(ps, i)})));
+  photo.append(strip);
+  if (ps.length > 1){
+    const dots = el('div', {className: 'dots'}); ps.forEach((_, i) => dots.append(el('i', {className: i ? '' : 'on'})));
+    strip.addEventListener('scroll', () => { const n = Math.round(strip.scrollLeft / strip.clientWidth); [...dots.children].forEach((d, i) => d.classList.toggle('on', i === n)); }, {passive: true});
+    photo.append(dots);
+  }
+  if (c.who) photo.append(el('div', {className: 'who', textContent: c.who}));
+  const fav = el('button', {className: 'fav' + (favs.has(c.id) ? ' on' : ''), textContent: favs.has(c.id) ? '♥' : '♡', ariaLabel: '찜'});
+  fav.onclick = () => {
+    favs.has(c.id) ? favs.delete(c.id) : favs.add(c.id);
+    store.set('sm-favs', [...favs]); count();
+    if (favOnly) draw(); else { fav.classList.toggle('on', favs.has(c.id)); fav.textContent = favs.has(c.id) ? '♥' : '♡'; }
+  };
+  photo.append(fav);
+
+  const ul = el('div', {className: 'items'});
+  items.forEach(i => {
+    const inner = [el('span', {className: 'info'}, el('span', {className: 'ic', textContent: ICON[i.cat] || '🛍️', title: i.cat}), el('span', {className: 'nm'}, el('b', {textContent: i.name}), el('small', {textContent: i.cat + ' · ' + i.brand.replace(/\s*\(.*\)\s*$/, '')}))), el('span', {className: 'pr', textContent: won(i.price)})];
+    ul.append(i.link ? el('a', {className: 'item', href: i.link, target: '_blank', rel: 'noopener noreferrer'}, ...inner) : el('div', {className: 'item'}, ...inner));
+  });
+  return el('article', {className: 'card'}, photo, ul);
+}
+
+function more(){
+  const g = $('#grid');
+  cur.slice(shown, shown + PAGE).forEach(v => g.append(card(v)));
+  shown += PAGE;
+}
+function count(){}
+function draw(){
+  $('#grid').innerHTML = ''; shown = 0;
+  const base = all.filter(v => pics(v.c).length);
+  cur = favOnly ? base.filter(v => favs.has(v.c.id)) : base;
+  $('#empty').hidden = cur.length > 0;
+  $('#empty').textContent = favOnly ? '찜한 코디가 없어요. 마음에 드는 코디의 ♡를 눌러 보세요.' : '아직 코디가 없어요. python collect.py 를 먼저 실행해 주세요.';
+  more();
+}
+$('#tAll').onclick = () => { favOnly = false; $('#tAll').classList.add('on'); $('#tFav').classList.remove('on'); draw(); scrollTo(0, 0); };
+$('#tFav').onclick = () => { favOnly = true; $('#tFav').classList.add('on'); $('#tAll').classList.remove('on'); draw(); scrollTo(0, 0); };
+
+// 스크롤하면 이어서 불러오기
+new IntersectionObserver(es => { if (es[0].isIntersecting && shown < cur.length) more(); }, {rootMargin: '800px'}).observe($('#end'));
+
+let lbUrls = [];
+function openLB(urls, idx){
+  lbUrls = urls;
+  const lb = $('#lb'); lb.innerHTML = '';
+  urls.forEach(u => lb.append(el('img', {src: u, referrerPolicy: 'no-referrer'})));
+  $('#dlg').showModal(); lb.scrollLeft = idx * lb.clientWidth;
+}
+$('#lbh').onclick = () => {
+  const lb = $('#lb'), u = lbUrls[Math.round(lb.scrollLeft / lb.clientWidth)];
+  if (!u) return;
+  hidden.add(u); store.set('sm-hide', [...hidden]);
+  $('#dlg').close();
+  const y = scrollY; draw(); scrollTo(0, y);
+};
+$('#lbx').onclick = () => $('#dlg').close();
+$('#dlg').addEventListener('click', e => { if (e.target === $('#dlg') || e.target === $('#lb')) $('#dlg').close(); });
+
+count(); draw();
+</script>
+</body>
+</html>
