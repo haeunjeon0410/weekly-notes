@@ -20,6 +20,7 @@ svg{display:block}
 
 nav{position:sticky;top:0;z-index:10;height:72px;padding:0 var(--pad);display:flex;align-items:center;justify-content:space-between;background:var(--bg);border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:12px}
+.brand h1 a{display:block}
 .brand h1{margin:0;font-size:26px;font-weight:700;letter-spacing:-.04em}
 .pill{background:var(--ink);color:var(--lime);font-weight:700;font-size:12px;padding:4px 10px;border-radius:99px;transform:rotate(-4deg)}
 #tFav{display:flex;align-items:center;gap:8px;height:44px;padding:0 20px;border-radius:99px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);font-size:14px;font-weight:700}
@@ -36,6 +37,7 @@ nav{position:sticky;top:0;z-index:10;height:72px;padding:0 var(--pad);display:fl
 .cats button{flex:none;width:48px;height:48px;border-radius:14px;background:#fff;color:var(--ink);display:grid;place-items:center;box-shadow:inset 0 0 0 1px var(--line)}
 .cats button.on{background:var(--ink);color:var(--lime);box-shadow:none}
 .total{font-size:14px;color:var(--sub)}
+.total em{font-style:normal;color:var(--sub);font-size:12px}
 .total b{color:var(--ink);font-size:16px}
 
 main{padding:32px var(--pad) 80px}
@@ -106,23 +108,25 @@ dialog::backdrop{background:rgba(0,0,0,.92)}
 </head>
 <body>
 <nav>
-  <div class="brand"><h1>손민수</h1><span class="pill num">≤ ₩50,000</span></div>
+  <div class="brand"><h1><a href="./" id="home" title="처음으로">손민수</a></h1><span class="pill num">≤ ₩50,000</span></div>
   <button id="tFav" aria-label="찜한 코디" title="찜한 코디"></button>
 </nav>
 <section class="hero">
   <h2>연예인 코디,<br>전부 <span>5만원 이하</span>만.</h2>
-  <p>아이템 가격부터 합계까지, 따라 입기 전에 한 번에 확인해요.</p>
+  <p>아이템 가격부터 합계까지, 따라 입기 전에 한 번에 확인해요. (아우터·원피스는 10만원까지)</p>
 </section>
 <div class="bar">
   <div class="cats" id="cats"></div>
-  <span class="total">코디 <b class="num" id="total">0</b>개</span>
+  <span class="total">코디 <b class="num" id="total">0</b>개 <em>· 아우터·원피스 10만원까지</em></span>
 </div>
 <main><div class="grid" id="grid"></div><div class="empty" id="empty" hidden></div><div id="end"></div></main>
 <dialog id="dlg"><button class="lbx" id="lbx" aria-label="닫기">✕</button><div class="lb" id="lb"></div><button class="lbh" id="lbh">이 사진 숨기기</button></dialog>
 
 <script src="data.js"></script>
 <script>
-const LIMIT = 50000, PAGE = 12;
+const PAGE = 12;
+// 원피스·아우터는 10만원, 나머지는 5만원까지
+const limitOf = cat => (cat === '원피스' || cat === '아우터') ? 100000 : 50000;
 const $ = s => document.querySelector(s);
 // 상품명에서 [홍보문구], (색상수), 이모지, 품번 등 군더더기 제거
 const COLOR = /black|white|ivory|gr[ea]y|navy|beige|brown|pink|blue|red|green|khaki|cream|mint|butter|charcoal|oatmeal|블랙|화이트|아이보리|그레이|네이비|베이지|브라운|핑크|블루|레드|그린|카키|크림|민트/i;
@@ -161,7 +165,8 @@ const P = {
   소품: '<path d="M7 4h10l4 5-9 11L3 9l4-5z"/><path d="M3 9h18"/>',
   기타: '<path d="M3 12l9-9h8v8l-9 9-8-8z"/><circle cx="15.5" cy="8.5" r="1.2"/>'
 };
-P.원피스 = P.상의; P.액세서리 = P.소품; P.전자기기 = P.기타;
+P.원피스 = '<path d="M9 3l1.2 4h3.6L15 3"/><path d="M10.2 7L8.6 12 4.5 21h15L15.4 12 13.8 7"/><path d="M8.6 12h6.8"/>';
+P.액세서리 = P.소품; P.전자기기 = P.기타;
 const icon = c => svg(P[c] || P.기타);
 const XLOGO = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
 const CHEV_L = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>';
@@ -171,7 +176,7 @@ const ARROW = svg('<path d="M7 17L17 7M9 7h8v8"/>', 16, 'class="go" stroke="#5e5
 
 // 5만원 이하 아이템이 하나라도 있는 코디만, 최신순
 const all = ((window.DATA && window.DATA.coordis) || [])
-  .map(c => ({c, items: c.items.filter(i => i.price <= LIMIT).sort((a, b) => a.price - b.price)}))
+  .map(c => ({c, items: c.items.filter(i => i.price <= limitOf(i.cat)).sort((a, b) => a.price - b.price)}))
   .filter(v => v.items.length)
   .sort((a, b) => (b.c.id > a.c.id) - (b.c.id < a.c.id));
 
@@ -213,11 +218,11 @@ function card({c, items}){
   photo.append(fav);
 
   const ul = el('div', {className: 'items'}, el('span', {className: 'perf'}),
-    el('div', {className: 'kept'}, el('span', {className: 'num', textContent: `5만원 이하 ${items.length} / ${c.items.length}개`}), el('a', {className: 'tw', href: 'https://x.com/i/status/' + c.id, target: '_blank', rel: 'noopener noreferrer', title: '원본 트윗 보기', innerHTML: XLOGO, ariaLabel: '원본 트윗 보기'})));
+    el('div', {className: 'kept'}, el('span', {className: 'num', textContent: `예산 이하 ${items.length} / ${c.items.length}개`}), el('a', {className: 'tw', href: 'https://x.com/i/status/' + c.id, target: '_blank', rel: 'noopener noreferrer', title: '원본 트윗 보기', innerHTML: XLOGO, ariaLabel: '원본 트윗 보기'})));
   items.forEach(i => {
     const inner = [
       el('span', {className: 'ic', title: i.cat, innerHTML: icon(i.cat)}),
-      el('span', {className: 'nm'}, el('b', {textContent: cleanName(i.name), title: i.name}), el('small', {textContent: i.brand.replace(/\s*\(.*\)\s*$/, '')})),
+      el('span', {className: 'nm'}, el('b', {textContent: cleanName(i.name), title: i.name}), el('small', {textContent: (i.alt ? '유사템 · ' : '') + i.brand.replace(/\s*\(.*\)\s*$/, '')})),
       el('span', {className: 'pr num'}, won(i.price), el('small', {textContent: '원'})),
     ];
     const row = i.link ? el('a', {className: 'item', href: i.link, target: '_blank', rel: 'noopener noreferrer'}, ...inner) : el('div', {className: 'item'}, ...inner);
@@ -249,12 +254,19 @@ function draw(){
 }
 
 // 카테고리 탭
-['전체', '상의', '하의', '아우터', '신발', '가방'].forEach(name => {
+['전체', '상의', '하의', '아우터', '원피스', '신발', '가방'].forEach(name => {
   $('#cats').append(el('button', {className: name === catSel ? 'on' : '', ariaLabel: name, title: name, innerHTML: icon(name === '전체' ? 'all' : name), onclick(){
     catSel = name; [...$('#cats').children].forEach(b => b.classList.toggle('on', b === this));
     draw(); scrollTo(0, 0);
   }}));
 });
+$('#home').onclick = e => {
+  e.preventDefault();
+  catSel = '전체'; favOnly = false;
+  $('#tFav').classList.remove('on');
+  [...$('#cats').children].forEach((b, i) => b.classList.toggle('on', i === 0));
+  draw(); scrollTo(0, 0);
+};
 $('#tFav').onclick = () => { favOnly = !favOnly; $('#tFav').classList.toggle('on', favOnly); draw(); scrollTo(0, 0); };
 
 // 스크롤하면 이어서 불러오기
