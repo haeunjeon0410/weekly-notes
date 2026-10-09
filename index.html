@@ -3,52 +3,84 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lookbook</title>
+<title>손민수</title>
 <meta name="robots" content="noindex,nofollow,noarchive">
 <style>
-:root{--bg:#f5f4f1;--card:#fff;--ink:#111;--sub:#8a8a8a;--line:#eeece8;--chip:#ebe9e5;--accent:#ff3b30}
-@media(prefers-color-scheme:dark){:root{--bg:#0d0d0d;--card:#1a1a1a;--ink:#f2f2f2;--sub:#8c8c8c;--line:#2a2a2a;--chip:#262626;--accent:#ff5a50}}
+@font-face{font-family:'Gmarket Sans';font-weight:300;font-display:swap;src:url(fonts/GmarketSans-300.woff) format('woff')}
+@font-face{font-family:'Gmarket Sans';font-weight:500;font-display:swap;src:url(fonts/GmarketSans-500.woff) format('woff')}
+@font-face{font-family:'Gmarket Sans';font-weight:700;font-display:swap;src:url(fonts/GmarketSans-700.woff) format('woff')}
+:root{--bg:#f3f2ee;--card:#fff;--ink:#0f0f0f;--sub:#5e5e5a;--line:#d9d7d0;--lime:#d7ff3f;--red:#e5352b;--pad:56px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Gmarket Sans',-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;-webkit-font-smoothing:antialiased}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0}
 a{color:inherit;text-decoration:none}
+a.item:hover b{text-decoration:underline}
+.num{font-variant-numeric:tabular-nums}
+svg{display:block}
 
-header{position:sticky;top:0;z-index:10;background:var(--card);border-bottom:1px solid var(--line)}
-.bar{max-width:1200px;margin:0 auto;padding:18px 24px;display:flex;align-items:center;justify-content:space-between}
-h1{margin:0;font-size:18px;font-weight:800;letter-spacing:-.02em}
-.tabs{display:flex;gap:4px}
-.tabs button{padding:6px 12px;border-radius:99px;font-size:14px;font-weight:600;color:var(--sub)}
-.tabs button.on{background:var(--ink);color:var(--bg)}
+nav{position:sticky;top:0;z-index:10;height:72px;padding:0 var(--pad);display:flex;align-items:center;justify-content:space-between;background:var(--bg);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px}
+.brand h1{margin:0;font-size:26px;font-weight:700;letter-spacing:-.04em}
+.pill{background:var(--ink);color:var(--lime);font-weight:700;font-size:12px;padding:4px 10px;border-radius:99px;transform:rotate(-4deg)}
+#tFav{display:flex;align-items:center;gap:8px;height:44px;padding:0 20px;border-radius:99px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);font-size:14px;font-weight:700}
+#tFav.on{background:var(--ink);color:#fff;box-shadow:none}
 
-main{max-width:1200px;margin:0 auto;padding:32px 24px 80px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:28px;align-items:start}
-.card{background:var(--card);border-radius:20px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.05),0 8px 24px rgba(0,0,0,.06)}
-@media(max-width:560px){.grid{grid-template-columns:1fr;gap:24px}main{padding:20px 16px 60px}.bar{padding:16px}}
+.hero{padding:56px var(--pad) 32px;display:flex;flex-direction:column;gap:16px}
+.hero h2{margin:0;font-size:56px;line-height:1.15;font-weight:700;letter-spacing:-.04em}
+.hero h2 span{background:var(--lime);padding:0 12px;border-radius:12px}
+.hero p{margin:0;font-size:16px;color:var(--sub)}
 
-.photo{position:relative;background:var(--chip)}
-.strip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.bar{padding:0 var(--pad) 14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--line)}
+.cats{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cats button{flex:none;width:48px;height:48px;border-radius:14px;background:#fff;color:var(--ink);display:grid;place-items:center;box-shadow:inset 0 0 0 1px var(--line)}
+.cats button.on{background:var(--ink);color:var(--lime);box-shadow:none}
+.total{font-size:14px;color:var(--sub)}
+.total b{color:var(--ink);font-size:16px}
+
+main{padding:32px var(--pad) 80px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;align-items:start}
+.card{position:relative;background:var(--card);border-radius:20px;overflow:hidden;box-shadow:0 1px 2px rgba(15,15,15,.06),0 10px 28px rgba(15,15,15,.08)}
+
+.photo{position:relative;background:#cbc6bc}
+.strip{display:flex;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;scrollbar-width:none}
 .strip::-webkit-scrollbar{display:none}
-.strip img{flex:0 0 100%;width:100%;display:block;aspect-ratio:3/4;object-fit:cover;object-position:50% 20%;scroll-snap-align:center;cursor:zoom-in}
-.dots{position:absolute;left:0;right:0;bottom:16px;padding-right:14px;display:flex;justify-content:flex-end;gap:5px;pointer-events:none}
-.dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5)}
-.dots i.on{background:#fff}
-.fav{position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.95);font-size:20px;line-height:40px;text-align:center;color:#999;box-shadow:0 1px 6px rgba(0,0,0,.18)}
-.fav.on{color:var(--accent)}
+.strip img.cl{object-fit:contain;object-position:50% 50%;background:#fff}
+.strip img{flex:0 0 100%;width:100%;display:block;aspect-ratio:4/5;object-fit:cover;object-position:50% 20%;scroll-snap-align:center;scroll-snap-stop:always;cursor:zoom-in}
+.who{position:absolute;left:12px;top:12px;display:flex;align-items:center;gap:8px;height:32px;padding:0 12px 0 4px;border-radius:99px;background:rgba(255,255,255,.94);max-width:calc(100% - 76px);pointer-events:none;font-size:13px;font-weight:700}
+.who i{flex:none;display:flex;align-items:center;height:24px;padding:0 10px;border-radius:99px;background:var(--ink);color:var(--lime);font-size:12px;font-style:normal;font-weight:700;white-space:nowrap}
+.who span{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.who.solo{padding-left:12px}
+.fav{position:absolute;right:8px;top:8px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;color:var(--ink)}
+.fav.on svg{fill:var(--red);stroke:var(--red)}
+.tw{width:26px;height:26px;display:grid;place-items:center;border-radius:50%;color:var(--sub);box-shadow:inset 0 0 0 1px var(--line)}
+.tw:hover{background:var(--ink);color:#fff;box-shadow:none}
+.nav{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;padding:0;box-shadow:0 1px 6px rgba(0,0,0,.2);opacity:0;transition:opacity .15s}
+.photo:hover .nav{opacity:.95}
+@media(hover:none){.nav{display:none}}
+.nav.l{left:12px}.nav.r{right:12px}
+.photo:hover .nav:hover{opacity:1}
+.cnt{position:absolute;right:12px;bottom:12px;padding:5px 10px;border-radius:99px;background:rgba(15,15,15,.72);color:#fff;font-size:12px;font-weight:700;pointer-events:none}
 
-.items{padding:6px 20px 10px}
-.item{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
-.item:last-child{border-bottom:0}
-.nm{min-width:0;font-size:14.5px;line-height:1.45}
-.nm b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-weight:600}
-.nm small{display:block;font-size:12.5px;color:var(--sub);margin-top:4px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.who{position:absolute;left:0;right:0;bottom:0;padding:44px 20px 18px;background:linear-gradient(transparent,rgba(0,0,0,.6));color:#fff;font-size:17px;font-weight:800;letter-spacing:-.01em;pointer-events:none;text-shadow:0 1px 3px rgba(0,0,0,.4)}
-.item{align-items:flex-start !important}
-.ic{flex:none;width:34px;height:34px;border-radius:10px;background:var(--chip);display:grid;place-items:center;font-size:18px;line-height:1}
-.info{display:flex;gap:12px;min-width:0;flex:1}
-.pr{padding-top:1px;font-size:16px !important}
-.pr{font-size:15px;font-weight:800;white-space:nowrap}
-.pr::after{content:" ›";color:var(--sub);font-weight:400}
-a.item:hover .nm{text-decoration:underline}
+.items{position:relative;padding:34px 20px 20px}
+.items::before,.items::after{content:"";position:absolute;top:2px;width:20px;height:20px;border-radius:50%;background:var(--bg)}
+.items::before{left:-10px}
+.items::after{right:-10px}
+.perf{position:absolute;left:16px;right:16px;top:11px;border-top:2px dashed var(--line)}
+.kept{display:flex;align-items:center;justify-content:space-between;padding-bottom:4px;font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--sub)}
+.item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px dashed var(--line)}
+.ic{flex:none;width:44px;height:44px;border-radius:10px;background:var(--bg);display:grid;place-items:center}
+.nm{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.nm b{font-size:15px;font-weight:500;line-height:1.35;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow-wrap:anywhere}
+.nm small{font-size:12px;color:var(--sub);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.pr{display:flex;align-items:baseline;gap:2px;white-space:nowrap;font-weight:700;font-size:17px}
+.pr small{font-size:12px;font-weight:500;color:var(--sub)}
+.go{flex:none}
+.sum{display:flex;align-items:center;justify-content:space-between;padding-top:16px}
+.sum > span{font-size:13px;font-weight:700}
+.sum div{display:flex;align-items:baseline;gap:2px;background:var(--lime);border-radius:8px;padding:2px 10px}
+.sum b{font-size:26px;font-weight:700;letter-spacing:-.02em}
+.sum small{font-size:14px;font-weight:700}
 
 .empty{text-align:center;color:var(--sub);padding:100px 0;font-size:15px}
 #end{height:1px}
@@ -59,15 +91,32 @@ dialog::backdrop{background:rgba(0,0,0,.92)}
 .lb img{flex:0 0 100%;width:100%;height:100%;object-fit:contain;scroll-snap-align:center}
 .lbh{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:2;padding:10px 18px;border-radius:99px;background:rgba(255,255,255,.14);color:#fff;font-size:13px;backdrop-filter:blur(8px)}
 .lbx{position:fixed;top:14px;right:14px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.92);color:#111;font-size:18px;z-index:2}
+
+@media(max-width:700px){
+  :root{--pad:20px}
+  nav{height:auto;padding-top:16px;padding-bottom:12px;border-bottom:0}
+  .brand h1{font-size:30px}
+  #tFav{padding:0 16px}
+  .hero{display:none}
+  .bar{padding-top:4px;margin-top:4px}
+  .grid{grid-template-columns:1fr;gap:20px}
+  main{padding:20px 16px 48px}
+}
 </style>
 </head>
 <body>
-<header>
-  <div class="bar">
-    <h1>Lookbook</h1>
-    <div class="tabs"><button id="tAll" class="on">전체</button><button id="tFav" aria-label="찜한 코디" title="찜한 코디">♥</button></div>
-  </div>
-</header>
+<nav>
+  <div class="brand"><h1>손민수</h1><span class="pill num">≤ ₩50,000</span></div>
+  <button id="tFav" aria-label="찜한 코디" title="찜한 코디"></button>
+</nav>
+<section class="hero">
+  <h2>연예인 코디,<br>전부 <span>5만원 이하</span>만.</h2>
+  <p>아이템 가격부터 합계까지, 따라 입기 전에 한 번에 확인해요.</p>
+</section>
+<div class="bar">
+  <div class="cats" id="cats"></div>
+  <span class="total">코디 <b class="num" id="total">0</b>개</span>
+</div>
 <main><div class="grid" id="grid"></div><div class="empty" id="empty" hidden></div><div id="end"></div></main>
 <dialog id="dlg"><button class="lbx" id="lbx" aria-label="닫기">✕</button><div class="lb" id="lb"></div><button class="lbh" id="lbh">이 사진 숨기기</button></dialog>
 
@@ -75,13 +124,50 @@ dialog::backdrop{background:rgba(0,0,0,.92)}
 <script>
 const LIMIT = 50000, PAGE = 12;
 const $ = s => document.querySelector(s);
-const ICON = {상의:'👕',하의:'👖',아우터:'🧥',원피스:'👗',가방:'👜',신발:'👟',모자:'🧢',소품:'🧣',액세서리:'💍',전자기기:'📱',기타:'🛍️'};
-const won = n => n.toLocaleString('ko-KR') + '원';
+// 상품명에서 [홍보문구], (색상수), 이모지, 품번 등 군더더기 제거
+const COLOR = /black|white|ivory|gr[ea]y|navy|beige|brown|pink|blue|red|green|khaki|cream|mint|butter|charcoal|oatmeal|블랙|화이트|아이보리|그레이|네이비|베이지|브라운|핑크|블루|레드|그린|카키|크림|민트/i;
+const cleanName = raw => {
+  const n = raw
+    .replace(/\[[^\]]*\]/g, ' ')
+    .replace(/\([^)]*\)/g, m => /color|컬러|colour|size|사이즈|무료|배송|증정|세일|할인|이벤트|\d+\s*(종|p|pcs)/i.test(m) ? ' ' : m)
+    .replace(/[\u{1F000}-\u{1FFFF}☀-➿️★☆♥♡❤♪※]+/gu, ' ')
+    .replace(/\b\d+\s*(color|컬러)s?\b/gi, ' ')
+    .replace(/\b(?=[A-Za-z0-9_-]*\d)(?=[A-Za-z0-9_-]*[A-Za-z])[A-Za-z0-9_-]{6,}\b/g, ' ')
+    .replace(/[!*~]+/g, ' ')
+    .replace(/,.*$/, '')
+    .replace(/\s*\((?:[A-Z][A-Za-z\s\/+.-]{2,25}|[가-힣\s\/]{1,10})\)\s*$/, m => COLOR.test(m) ? '' : m)
+    .replace(/\s*[_\/-]?\s*\b(\d{5,}|[A-Z]{1,3}\d[A-Z0-9]{3,})\s*$/, '')
+    .replace(/[\s_\/-]+(?:BLACK|WHITE|IVORY|GR[EA]Y|NAVY|BEIGE|BROWN|PINK|BLUE|RED|GREEN|KHAKI|CREAM|MINT|BUTTER|CHARCOAL|OATMEAL|MELANGE GREY|DARK GREY|OFF-?WHITE|블랙|화이트|아이보리|그레이|네이비|베이지|브라운|핑크|블루|레드|그린|카키|크림|민트)\s*$/i, '')
+    .replace(/\s+/g, ' ').replace(/(\s*[\/|_-])+\s*$/, '').trim();
+  return n.length >= 2 ? n : raw.trim();
+};
+const won = n => n.toLocaleString('ko-KR');
 const store = {
   get(k, d){ try{ const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); }catch(e){ return d; } },
   set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
 };
 function el(tag, props, ...kids){ const e = document.createElement(tag); Object.assign(e, props); e.append(...kids); return e; }
+
+// 아이콘 (고정 SVG 문자열)
+const svg = (d, s = 22, extra = '') => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ${extra}>${d}</svg>`;
+const P = {
+  all:  '<rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/>',
+  상의: '<path d="M8 4L3 7l2 4 3-1v10h8V10l3 1 2-4-5-3c-.5 1.5-2 2.5-4 2.5S8.5 5.5 8 4z"/>',
+  하의: '<path d="M7 3h10l1 18h-4.5L12 10l-1.5 11H6L7 3z"/><path d="M7 7h10"/>',
+  아우터: '<path d="M9 3L4 6v15h5V9m6-6l5 3v15h-5V9M9 3l3 5 3-5M12 8v13"/>',
+  신발: '<path d="M3 17v-4l4.5-1.5L10 14h3l.8-3.5 5.2 2.5c1.5.8 2 2 2 4v0H3z"/><path d="M3 19.5h18"/>',
+  가방: '<path d="M5 8h14l1 12H4L5 8z"/><path d="M9 8V6a3 3 0 016 0v2"/>',
+  모자: '<path d="M4 15c0-4.5 3.5-8 8-8s8 3.5 8 8H4z"/><path d="M4 15c-1 0-2 .8-2 2h13"/>',
+  소품: '<path d="M7 4h10l4 5-9 11L3 9l4-5z"/><path d="M3 9h18"/>',
+  기타: '<path d="M3 12l9-9h8v8l-9 9-8-8z"/><circle cx="15.5" cy="8.5" r="1.2"/>'
+};
+P.원피스 = P.상의; P.액세서리 = P.소품; P.전자기기 = P.기타;
+const icon = c => svg(P[c] || P.기타);
+const XLOGO = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
+const CHEV_L = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>';
+const CHEV_R = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>';
+const HEART = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.3 5c2 0 3.7 1.1 4.7 2.7h2C14 6.1 15.7 5 17.7 5 21 5 23.1 8.4 21.6 11.8 19.5 16.4 12 21 12 21z"/></svg>';
+const ARROW = svg('<path d="M7 17L17 7M9 7h8v8"/>', 16, 'class="go" stroke="#5e5e5a" stroke-width="2.2"');
 
 // 5만원 이하 아이템이 하나라도 있는 코디만, 최신순
 const all = ((window.DATA && window.DATA.coordis) || [])
@@ -91,36 +177,55 @@ const all = ((window.DATA && window.DATA.coordis) || [])
 
 // 코디와 상관없는 사진(음식, 셀카 등)은 확대해서 '숨기기'로 지울 수 있어요
 let hidden = new Set(store.get('sm-hide', []));
-const pics = c => c.photos.filter(u => !hidden.has(u));
+// 연예인 사진 뒤에, 트윗 주인이 올린 '옷만 찍힌 사진'을 이어 붙인다
+const clothesOf = c => new Set(c.clothes || []);
+const pics = c => [...c.photos, ...(c.clothes || [])].filter((u, i, a) => !hidden.has(u) && a.indexOf(u) === i);
 
 let favs = new Set(store.get('sm-favs', []));
-let favOnly = false, shown = 0, cur = [];
+let favOnly = false, catSel = '전체', shown = 0, cur = [];
 
 function card({c, items}){
   const photo = el('div', {className: 'photo'});
   const strip = el('div', {className: 'strip'});
-  const ps = pics(c);
-  ps.forEach((u, i) => strip.append(el('img', {src: u, alt: '', loading: 'lazy', referrerPolicy: 'no-referrer', onclick: () => openLB(ps, i)})));
+  const ps = pics(c), cl = clothesOf(c);
+  ps.forEach((u, i) => strip.append(el('img', {className: cl.has(u) ? 'cl' : '', src: u, alt: '', loading: 'lazy', referrerPolicy: 'no-referrer', onclick: () => openLB(ps, i)})));
   photo.append(strip);
   if (ps.length > 1){
-    const dots = el('div', {className: 'dots'}); ps.forEach((_, i) => dots.append(el('i', {className: i ? '' : 'on'})));
-    strip.addEventListener('scroll', () => { const n = Math.round(strip.scrollLeft / strip.clientWidth); [...dots.children].forEach((d, i) => d.classList.toggle('on', i === n)); }, {passive: true});
-    photo.append(dots);
+    const cnt = el('span', {className: 'cnt num', textContent: '1 / ' + ps.length});
+    strip.addEventListener('scroll', () => { cnt.textContent = (Math.round(strip.scrollLeft / strip.clientWidth) + 1) + ' / ' + ps.length; }, {passive: true});
+    photo.append(cnt);
+    ['‹', '›'].forEach((ch, k) => photo.append(el('button', {className: 'nav ' + (k ? 'r' : 'l'), innerHTML: k ? CHEV_R : CHEV_L, ariaLabel: k ? '다음 사진' : '이전 사진',
+      onclick: () => strip.scrollBy({left: (k ? 1 : -1) * strip.clientWidth, behavior: 'smooth'})})));
   }
-  if (c.who) photo.append(el('div', {className: 'who', textContent: c.who}));
-  const fav = el('button', {className: 'fav' + (favs.has(c.id) ? ' on' : ''), textContent: favs.has(c.id) ? '♥' : '♡', ariaLabel: '찜'});
+  if (c.who){
+    const [grp, ...rest] = c.who.trim().split(/\s+/);
+    const who = rest.length
+      ? el('div', {className: 'who'}, el('i', {textContent: grp}), el('span', {textContent: rest.join(' ')}))
+      : el('div', {className: 'who solo'}, el('span', {textContent: grp}));
+    photo.append(who);
+  }
+  const fav = el('button', {className: 'fav' + (favs.has(c.id) ? ' on' : ''), innerHTML: HEART, ariaLabel: '찜'});
   fav.onclick = () => {
     favs.has(c.id) ? favs.delete(c.id) : favs.add(c.id);
     store.set('sm-favs', [...favs]); count();
-    if (favOnly) draw(); else { fav.classList.toggle('on', favs.has(c.id)); fav.textContent = favs.has(c.id) ? '♥' : '♡'; }
+    if (favOnly) draw(); else fav.classList.toggle('on', favs.has(c.id));
   };
   photo.append(fav);
 
-  const ul = el('div', {className: 'items'});
+  const ul = el('div', {className: 'items'}, el('span', {className: 'perf'}),
+    el('div', {className: 'kept'}, el('span', {className: 'num', textContent: `5만원 이하 ${items.length} / ${c.items.length}개`}), el('a', {className: 'tw', href: 'https://x.com/i/status/' + c.id, target: '_blank', rel: 'noopener noreferrer', title: '원본 트윗 보기', innerHTML: XLOGO, ariaLabel: '원본 트윗 보기'})));
   items.forEach(i => {
-    const inner = [el('span', {className: 'info'}, el('span', {className: 'ic', textContent: ICON[i.cat] || '🛍️', title: i.cat}), el('span', {className: 'nm'}, el('b', {textContent: i.name}), el('small', {textContent: i.cat + ' · ' + i.brand.replace(/\s*\(.*\)\s*$/, '')}))), el('span', {className: 'pr', textContent: won(i.price)})];
-    ul.append(i.link ? el('a', {className: 'item', href: i.link, target: '_blank', rel: 'noopener noreferrer'}, ...inner) : el('div', {className: 'item'}, ...inner));
+    const inner = [
+      el('span', {className: 'ic', title: i.cat, innerHTML: icon(i.cat)}),
+      el('span', {className: 'nm'}, el('b', {textContent: cleanName(i.name), title: i.name}), el('small', {textContent: i.brand.replace(/\s*\(.*\)\s*$/, '')})),
+      el('span', {className: 'pr num'}, won(i.price), el('small', {textContent: '원'})),
+    ];
+    const row = i.link ? el('a', {className: 'item', href: i.link, target: '_blank', rel: 'noopener noreferrer'}, ...inner) : el('div', {className: 'item'}, ...inner);
+    if (i.link) row.insertAdjacentHTML('beforeend', ARROW);
+    ul.append(row);
   });
+  const sum = items.reduce((s, i) => s + i.price, 0);
+  ul.append(el('div', {className: 'sum'}, el('span', {textContent: '합계'}), el('div', {}, el('b', {className: 'num', textContent: won(sum)}), el('small', {textContent: '원'}))));
   return el('article', {className: 'card'}, photo, ul);
 }
 
@@ -129,17 +234,28 @@ function more(){
   cur.slice(shown, shown + PAGE).forEach(v => g.append(card(v)));
   shown += PAGE;
 }
-function count(){}
+function count(){
+  $('#tFav').innerHTML = HEART.replace('fill="none" stroke="currentColor"', 'fill="#e5352b" stroke="#e5352b"') + `<span>찜</span><span class="num">${favs.size}</span>`;
+}
 function draw(){
   $('#grid').innerHTML = ''; shown = 0;
-  const base = all.filter(v => pics(v.c).length);
+  let base = all.filter(v => pics(v.c).length);
+  if (catSel !== '전체') base = base.filter(v => v.items.some(i => i.cat === catSel));
   cur = favOnly ? base.filter(v => favs.has(v.c.id)) : base;
+  $('#total').textContent = cur.length;
   $('#empty').hidden = cur.length > 0;
   $('#empty').textContent = favOnly ? '찜한 코디가 없어요. 마음에 드는 코디의 ♡를 눌러 보세요.' : '아직 코디가 없어요. python collect.py 를 먼저 실행해 주세요.';
   more();
 }
-$('#tAll').onclick = () => { favOnly = false; $('#tAll').classList.add('on'); $('#tFav').classList.remove('on'); draw(); scrollTo(0, 0); };
-$('#tFav').onclick = () => { favOnly = true; $('#tFav').classList.add('on'); $('#tAll').classList.remove('on'); draw(); scrollTo(0, 0); };
+
+// 카테고리 탭
+['전체', '상의', '하의', '아우터', '신발', '가방'].forEach(name => {
+  $('#cats').append(el('button', {className: name === catSel ? 'on' : '', ariaLabel: name, title: name, innerHTML: icon(name === '전체' ? 'all' : name), onclick(){
+    catSel = name; [...$('#cats').children].forEach(b => b.classList.toggle('on', b === this));
+    draw(); scrollTo(0, 0);
+  }}));
+});
+$('#tFav').onclick = () => { favOnly = !favOnly; $('#tFav').classList.toggle('on', favOnly); draw(); scrollTo(0, 0); };
 
 // 스크롤하면 이어서 불러오기
 new IntersectionObserver(es => { if (es[0].isIntersecting && shown < cur.length) more(); }, {rootMargin: '800px'}).observe($('#end'));
