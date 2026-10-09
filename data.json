@@ -1,6 +1,30 @@
 {
  "coordis": [
   {
+   "id": "2108678906358161776",
+   "created": "Fri Oct 09 22:00:03 +0000 2026",
+   "date": "261009",
+   "who": "우주소녀 설아",
+   "photos": [
+    "https://pbs.twimg.com/media/HUNEiqFa0AAmJru.jpg?name=orig"
+   ],
+   "clothes": [
+    "https://pbs.twimg.com/media/HUNE908aIAAIGVy.jpg?name=orig"
+   ],
+   "qkeys": [
+    "https://pbs.twimg.com/media/HULeLxKawAAC1Ai.jpg"
+   ],
+   "items": [
+    {
+     "cat": "상의",
+     "brand": "기준 (KIJUN)",
+     "name": "STRIPE ONE-SHOULDER LONG SLEEVE TOP_MINT",
+     "price": 59250,
+     "link": "https://curator.29cm.co.kr/short-link/goods/mwqvnkgp"
+    }
+   ]
+  },
+  {
    "id": "2108607812930875426",
    "created": "Fri Oct 09 17:17:33 +0000 2026",
    "date": "261009",
@@ -23220,7 +23244,7 @@
   }
  ],
  "newest": {
-  "e6f1e85e66": "2108607812930875426"
+  "e6f1e85e66": "2108678906358161776"
  },
- "updated": "2026-10-10 03:15"
+ "updated": "2026-10-09 22:41"
 }
