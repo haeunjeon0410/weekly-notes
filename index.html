@@ -89,6 +89,7 @@ main{padding:32px var(--pad) 80px}
 .sum b{font-size:26px;font-weight:700;letter-spacing:-.02em}
 .sum small{font-size:14px;font-weight:700}
 
+.again{margin-top:16px;height:44px;padding:0 20px;border-radius:99px;background:var(--ink);color:#fff;font-weight:700;font-size:14px}
 .empty{text-align:center;color:var(--sub);padding:100px 0;font-size:15px}
 #end{height:1px}
 
@@ -192,6 +193,10 @@ const clothesOf = c => new Set(c.clothes || []);
 const pics = c => [...c.photos, ...(c.clothes || [])].filter((u, i, a) => !hidden.has(u) && a.indexOf(u) === i);
 
 let favs = new Set(store.get('sm-favs', []));
+// 인스타 피드처럼: 이미 본 코디는 다음에 들어오면 빠지고, 아직 안 본 새 코디부터 보여준다
+// seen = 지금까지 본 것(저장), seenBefore = 이 페이지를 열 때 이미 봤던 것(이번 방문 동안 고정)
+let seen = new Set(store.get('sm-seen', []));
+const seenBefore = new Set(seen);
 let favOnly = false, catSel = '전체', shown = 0, cur = [];
 
 function card({c, items}){
@@ -241,8 +246,10 @@ function card({c, items}){
 
 function more(){
   const g = $('#grid');
-  cur.slice(shown, shown + PAGE).forEach(v => g.append(card(v)));
+  const batch = cur.slice(shown, shown + PAGE);
+  batch.forEach(v => g.append(card(v)));
   shown += PAGE;
+  if (!favOnly && batch.length){ batch.forEach(v => seen.add(v.c.id)); store.set('sm-seen', [...seen]); }
 }
 function count(){
   $('#tFav').innerHTML = HEART.replace('fill="none" stroke="currentColor"', 'fill="#e5352b" stroke="#e5352b"') + `<span>찜</span><span class="num">${favs.size}</span>`;
@@ -251,10 +258,13 @@ function draw(){
   $('#grid').innerHTML = ''; shown = 0;
   let base = all.filter(v => pics(v.c).length);
   if (catSel !== '전체') base = base.filter(v => v.items.some(i => i.cat === catSel));
-  cur = favOnly ? base.filter(v => favs.has(v.c.id)) : base;
+  cur = favOnly ? base.filter(v => favs.has(v.c.id)) : base.filter(v => !seenBefore.has(v.c.id));
   $('#total').textContent = cur.length;
-  $('#empty').hidden = cur.length > 0;
-  $('#empty').textContent = favOnly ? '찜한 코디가 없어요. 마음에 드는 코디의 ♡를 눌러 보세요.' : '아직 코디가 없어요. python collect.py 를 먼저 실행해 주세요.';
+  const empty = $('#empty');
+  empty.hidden = cur.length > 0;
+  empty.textContent = favOnly ? '찜한 코디가 없어요. 마음에 드는 코디의 ♡를 눌러 보세요.' : (all.length ? '새 코디를 다 봤어요. 나중에 다시 들어오면 새로 올라온 옷이 보여요.' : '아직 코디가 없어요.');
+  if (!favOnly && all.length && !cur.length)
+    empty.append(el('br'), el('button', {className: 'again', textContent: '처음부터 다시 보기', onclick: () => { store.set('sm-seen', []); location.reload(); }}));
   more();
 }
 
