@@ -91,7 +91,9 @@ main{padding:32px var(--pad) 80px}
 
 .again{margin-top:16px;height:44px;padding:0 20px;border-radius:99px;background:var(--ink);color:#fff;font-weight:700;font-size:14px}
 .empty{text-align:center;color:var(--sub);padding:100px 0;font-size:15px}
-#end{height:1px}
+.more{display:flex;flex-direction:column;align-items:center;gap:10px;padding:40px 0 0;color:var(--sub);font-size:14px}
+.more button{height:52px;padding:0 28px;border-radius:99px;background:var(--ink);color:var(--lime);font-weight:700;font-size:15px}
+.more button.ghost{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
 
 dialog{border:0;padding:0;background:transparent;max-width:100vw;max-height:100vh;width:100vw;height:100vh}
 dialog::backdrop{background:rgba(0,0,0,.92)}
@@ -125,7 +127,7 @@ dialog::backdrop{background:rgba(0,0,0,.92)}
   <div class="cats" id="cats"></div>
   <span class="total">코디 <b class="num" id="total">0</b>개</span>
 </div>
-<main><div class="grid" id="grid"></div><div class="empty" id="empty" hidden></div><div id="end"></div></main>
+<main><div class="grid" id="grid"></div><div class="empty" id="empty" hidden></div><div class="more" id="more"></div></main>
 <dialog id="dlg"><button class="lbx" id="lbx" aria-label="닫기">✕</button><div class="lb" id="lb"></div><button class="lbh" id="lbh">이 사진 숨기기</button></dialog>
 
 <script src="data.js"></script>
@@ -244,18 +246,29 @@ function card({c, items}){
   return el('article', {className: 'card'}, photo, ul);
 }
 
+// 한 화면에 PAGE개만 보여주고, 아래 버튼으로 다음 묶음(= 새로고침)으로 넘어간다
+let batch = [];
 function more(){
+  batch = favOnly ? cur : cur.slice(0, PAGE);
   const g = $('#grid');
-  const batch = cur.slice(shown, shown + PAGE);
   batch.forEach(v => g.append(card(v)));
-  shown += PAGE;
   if (!favOnly && batch.length){ batch.forEach(v => seen.add(v.c.id)); store.set('sm-seen', [...seen]); }
+  const m = $('#more'); m.innerHTML = '';
+  if (favOnly || !batch.length) return;
+  const left = cur.length - batch.length;
+  if (left > 0){
+    m.append(el('span', {textContent: `안 본 코디 ${left}개 남음`}),
+      el('button', {textContent: '새 코디 보기 ↻', onclick: () => { batch.forEach(v => seenBefore.add(v.c.id)); draw(); scrollTo(0, 0); }}));
+  } else {
+    m.append(el('span', {textContent: '새 코디를 다 봤어요'}),
+      el('button', {className: 'ghost', textContent: '처음부터 다시 보기', onclick: () => { store.set('sm-seen', []); location.reload(); }}));
+  }
 }
 function count(){
   $('#tFav').innerHTML = HEART.replace('fill="none" stroke="currentColor"', 'fill="#e5352b" stroke="#e5352b"') + `<span>찜</span><span class="num">${favs.size}</span>`;
 }
 function draw(){
-  $('#grid').innerHTML = ''; shown = 0;
+  $('#grid').innerHTML = ''; $('#more').innerHTML = '';
   let base = all.filter(v => pics(v.c).length);
   if (catSel !== '전체') base = base.filter(v => v.items.some(i => i.cat === catSel));
   cur = favOnly ? base.filter(v => favs.has(v.c.id)) : base.filter(v => !seenBefore.has(v.c.id));
@@ -284,8 +297,6 @@ $('#home').onclick = e => {
 };
 $('#tFav').onclick = () => { favOnly = !favOnly; $('#tFav').classList.toggle('on', favOnly); draw(); scrollTo(0, 0); };
 
-// 스크롤하면 이어서 불러오기
-new IntersectionObserver(es => { if (es[0].isIntersecting && shown < cur.length) more(); }, {rootMargin: '800px'}).observe($('#end'));
 
 let lbUrls = [];
 function openLB(urls, idx){
