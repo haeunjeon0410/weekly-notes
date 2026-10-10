@@ -1,6 +1,31 @@
 {
  "coordis": [
   {
+   "id": "2109048833820811408",
+   "created": "Sat Oct 10 22:30:00 +0000 2026",
+   "date": "261010",
+   "who": "스테이씨 윤",
+   "photos": [
+    "https://pbs.twimg.com/media/HUQleQ2aIAAogzt.jpg?name=orig"
+   ],
+   "clothes": [
+    "https://pbs.twimg.com/media/HUQmN7VboAAsdvc.jpg?name=orig"
+   ],
+   "qkeys": [
+    "https://pbs.twimg.com/media/HUP56NpbUAASD8D.jpg",
+    "https://pbs.twimg.com/media/HUP56NrbQAAJvn1.jpg"
+   ],
+   "items": [
+    {
+     "cat": "아우터",
+     "brand": "허그유어스킨 (HUG YOUR SKIN)",
+     "name": "더블 버튼 후드 가디건 (핑크 그레이)",
+     "price": 106900,
+     "link": "https://curator.29cm.co.kr/short-link/goods/ehxwg98f"
+    }
+   ]
+  },
+  {
    "id": "2108985919546220699",
    "created": "Sat Oct 10 18:20:00 +0000 2026",
    "date": "261010",
@@ -24379,7 +24404,7 @@
   }
  ],
  "newest": {
-  "e6f1e85e66": "2108985919546220699"
+  "e6f1e85e66": "2109048833820811408"
  },
- "updated": "2026-10-10 20:05"
+ "updated": "2026-10-10 23:35"
 }
