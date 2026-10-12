@@ -1,6 +1,107 @@
 {
  "coordis": [
   {
+   "id": "2109448972028817893",
+   "created": "Mon Oct 12 01:00:01 +0000 2026",
+   "date": "260928",
+   "who": "고윤정",
+   "photos": [
+    "https://pbs.twimg.com/media/HUXpSENbcAAg6iJ.jpg?name=orig"
+   ],
+   "clothes": [
+    "https://pbs.twimg.com/media/HUXpzUfaAAAF42V.jpg?name=orig"
+   ],
+   "qkeys": [
+    "https://pbs.twimg.com/media/HTTA4sIbsAAQDCs.jpg",
+    "https://pbs.twimg.com/media/HTTA5I9acAADdMc.jpg",
+    "https://pbs.twimg.com/media/HTTA5jwagAAZEwj.jpg"
+   ],
+   "items": [
+    {
+     "cat": "아우터",
+     "brand": "시티즌 오브 휴머니티 (CITIZENS OF HUMANITY)",
+     "name": "Tabitha cropped ribbed wool and cashmere-blend cardigan",
+     "price": 391383,
+     "link": "https://www.net-a-porter.com/en-no/shop/product/citizens-of-humanity/clothing/cardigans/tabitha-cropped-ribbed-wool-and-cashmere-blend-cardigan/46376663162940577"
+    }
+   ]
+  },
+  {
+   "id": "2109433874657017924",
+   "created": "Mon Oct 12 00:00:01 +0000 2026",
+   "date": "261010",
+   "who": "에스파 윈터",
+   "photos": [
+    "https://pbs.twimg.com/media/HUXl0D9aMAAQPzH.jpg?name=orig"
+   ],
+   "clothes": [
+    "https://pbs.twimg.com/media/HUXnPJXaoAAfBYc.jpg?name=orig"
+   ],
+   "qkeys": [
+    "https://pbs.twimg.com/media/HUPUqf1b0AAeh1Y.jpg",
+    "https://pbs.twimg.com/media/HUPUqgMbkAAKKHt.jpg",
+    "https://pbs.twimg.com/media/HUPUqgPa8AA8Sat.jpg",
+    "https://pbs.twimg.com/media/HUPUqf8bQAAFf1p.jpg"
+   ],
+   "items": [
+    {
+     "cat": "상의",
+     "brand": "플리즈노팔로우 (PLEASENOFOLLOW)",
+     "name": "Ella Lace Sleeveless Top (Ivory)",
+     "price": 49680,
+     "link": "https://www.musinsa.com/curator/goods/xmZpkx"
+    },
+    {
+     "cat": "하의",
+     "brand": "섭듀드 (SUBDUED)",
+     "name": "Checkered shorts with drawstring",
+     "price": 36000,
+     "link": "https://kr.subdued.com/products/checkered-shorts-with-drawstring-pc069i4"
+    },
+    {
+     "cat": "신발",
+     "brand": "자라 (ZARA)",
+     "name": "플랫폼 스니커즈",
+     "price": 59900,
+     "link": "https://www.zara.com/kr/ko/%E1%84%91%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A2%E1%86%BA%E1%84%91%E1%85%A9%E1%86%B7-%E1%84%89%E1%85%B3%E1%84%82%E1%85%B5%E1%84%8F%E1%85%A5%E1%84%8C%E1%85%B3-p15801610.html"
+    }
+   ]
+  },
+  {
+   "id": "2109418772436029802",
+   "created": "Sun Oct 11 23:00:01 +0000 2026",
+   "date": "261010",
+   "who": "에스파 지젤",
+   "photos": [
+    "https://pbs.twimg.com/media/HUXq37jbMAAVDw_.jpg?name=orig"
+   ],
+   "clothes": [
+    "https://pbs.twimg.com/media/HUXrrh_a4AAp3yw.jpg?name=orig"
+   ],
+   "qkeys": [
+    "https://pbs.twimg.com/media/HUPSHgWbIAA-9Cp.jpg",
+    "https://pbs.twimg.com/media/HUPSIWUaMAE8kxV.jpg",
+    "https://pbs.twimg.com/media/HUPSJXDbsAA3enE.jpg",
+    "https://pbs.twimg.com/media/HUPSKVfbgAA2i_4.jpg"
+   ],
+   "items": [
+    {
+     "cat": "상의",
+     "brand": "자라 (ZARA)",
+     "name": "크로스 스트랩 레이스 새틴 탑",
+     "price": 89900,
+     "link": "https://www.zara.com/kr/ko/%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%89%E1%85%B3-%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B8-%E1%84%85%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%89%E1%85%B3-%E1%84%89%E1%85%A2%E1%84%90%E1%85%B5%E1%86%AB-%E1%84%90%E1%85%A1%E1%86%B8-p05919712.html"
+    },
+    {
+     "cat": "하의",
+     "brand": "샤키리 (SHAKIRI)",
+     "name": "스위티 프릴리 튤 스커트 (크림)",
+     "price": 148500,
+     "link": "https://www.musinsa.com/curator/goods/D4aPK7zw"
+    }
+   ]
+  },
+  {
    "id": "2109403679682134205",
    "created": "Sun Oct 11 22:00:02 +0000 2026",
    "date": "261011",
@@ -24981,7 +25082,7 @@
   }
  ],
  "newest": {
-  "e6f1e85e66": "2109403679682134205"
+  "e6f1e85e66": "2109448972028817893"
  },
- "updated": "2026-10-11 22:00"
+ "updated": "2026-10-12 01:21"
 }
